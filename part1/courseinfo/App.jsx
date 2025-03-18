@@ -2,9 +2,9 @@ const Content = ({course}) => {
   return (
     <div>
       {/* Use map method */}
-      <Part name = {course.parts[0].name} exercises = {course.parts[0].exercises}/>
-      <Part name = {course.parts[1].name} exercises = {course.parts[1].exercises}/>
-      <Part name = {course.parts[2].name} exercises = {course.parts[2].exercises}/>
+      {course.parts.map((part, index) => (
+        <Part key={index} name = {part.name} exercises = {part.exercises}></Part>
+      ))}
     </div>
   )
 }
@@ -21,9 +21,13 @@ const Header = ({course}) => {
   )
 }
 const Total = ({course}) => {
+  const total = course.parts.reduce((acc, curr) => {
+    acc += curr.exercises
+    return acc
+  }, 0)
   return (
     // Use reduce method 
-    <div>Number of exercises {course.parts[0].exercises + course.parts[1].exercises + course.parts[2].exercises}</div>
+    <div>Number of exercises {total}</div>
   )
 }
 const App = () => {
